@@ -3,10 +3,12 @@
 	"description": "Narsil menus",
 	"license": "MIT",
 	"keywords": [
-		"narsil",
+		"inertia",
 		"laravel",
-		"react",
-		"menus"
+		"menus",
+		"narsil",
+		"php",
+		"react"
 	],
 	"authors": [
 		{
@@ -16,33 +18,27 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "git@github.com:Narsileon/narsil-forms.git",
-			"no-api": true
+			"url": "git@github.com:Narsileon/narsil-forms.git"
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:Narsileon/narsil-localization.git",
-			"no-api": true
+			"url": "git@github.com:Narsileon/narsil-localization.git"
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:Narsileon/narsil-policies.git",
-			"no-api": true
+			"url": "git@github.com:Narsileon/narsil-policies.git"
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:Narsileon/narsil-storage.git",
-			"no-api": true
+			"url": "git@github.com:Narsileon/narsil-storage.git"
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:Narsileon/narsil-tree.git",
-			"no-api": true
+			"url": "git@github.com:Narsileon/narsil-tree.git"
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:Narsileon/narsil-ui.git",
-			"no-api": true
+			"url": "git@github.com:Narsileon/narsil-ui.git"
 		}
 	],
 	"require": {
