@@ -1,20 +1,15 @@
 <?php
 
-namespace Narsil\Framework\Models\Navigations;
+namespace Narsil\Menus\Models;
 
 #region USE
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
-use Narsil\Forms\Models\FormNodeOption;
-use Narsil\Framework\Enums\MenuEnum;
-use Narsil\Framework\Enums\VisibilityEnum;
-use Narsil\Framework\Http\Resources\Menus\MenuFormResource;
-use Narsil\Framework\Observers\MenuObserver;
+use Narsil\Menus\Enums\MenuEnum;
+use Narsil\Menus\Enums\VisibilityEnum;
 
 #endregion
 
@@ -34,6 +29,10 @@ class Menu extends Model
      */
     public function __construct(array $attributes = [])
     {
+        $this->casts = [
+            self::ACTIVE => 'boolean',
+        ];
+
         $this->with = [
             self::RELATIONSHIP_NODES,
         ];
@@ -48,12 +47,15 @@ class Menu extends Model
     /**
      * @var string
      */
+    final public const ACTIVE = 'active';
+    /**
+     * @var string
+     */
     final public const ID = 'id';
     /**
      * @var string
      */
     final public const NAME = 'name';
-
     /**
      * @var string
      */
@@ -66,11 +68,7 @@ class Menu extends Model
     /**
      * @var string
      */
-    final public const RELATIONSHIP_TYPE_OPTION = 'type_option';
-    /**
-     * @var string
-     */
-    final public const RELATIONSHIP_VALIDATED_NODES = 'validated_nodes';
+    final public const RELATIONSHIP_VISIBLE_NODES = 'visible_nodes';
 
     /**
      * @var string
@@ -94,49 +92,51 @@ class Menu extends Model
     }
 
     /**
-     * @return HasOne
-     */
-    final public function type_option(): HasOne
-    {
-        return $this->hasOne(
-            FormNodeOption::class,
-            FormNodeOption::ID,
-            self::TYPE
-        );
-    }
-
-    /**
      * @return HasMany
      */
-    final public function validated_nodes(): HasMany
+    final public function visible_nodes(): HasMany
     {
         return $this->hasMany(
             MenuHasNode::class,
             MenuHasNode::MENU_ID,
             self::ID
-        )->whereHas(MenuHasNode::RELATIONSHIP_MENU_NODE, function ($query)
+        )->whereHas(MenuHasNode::RELATIONSHIP_TARGET, function ($menuNodeQuery)
         {
-            $query
-                ->whereHas(MenuNode::RELATIONSHIP_VISIBILITY_OPTION, function (Builder $query)
+            $menuNodeQuery
+                ->where(function (Builder $subquery)
                 {
                     if (Auth::check())
                     {
-                        $query->where(FormNodeOption::VALUE, VisibilityEnum::AUTH->value);
+                        $subquery->where(MenuNode::VISIBILITY, VisibilityEnum::AUTH->value);
                     }
                     else
                     {
-                        $query->where(FormNodeOption::VALUE, VisibilityEnum::GUEST->value);
+                        $subquery->where(MenuNode::VISIBILITY, VisibilityEnum::GUEST->value);
                     }
 
-                    $query->orWhere(FormNodeOption::VALUE, VisibilityEnum::USER->value);
-                })
-                ->orDoesntHave(MenuNode::RELATIONSHIP_VISIBILITY_OPTION);
-        })->orderBy(MenuHasNode::NODE_ID);
+                    $subquery->orWhere(MenuNode::VISIBILITY, VisibilityEnum::USER->value);
+                });
+        });
     }
 
     #endregion
 
     #region SCOPES
+
+    /**
+     * @param Builder $query
+     *
+     * @return void
+     */
+    final public function scopeOptions(Builder $query): void
+    {
+        $query
+            ->select([
+                self::ID,
+                self::NAME,
+            ])
+            ->where(self::ACTIVE, true);
+    }
 
     /**
      * @param Builder $query
@@ -146,27 +146,7 @@ class Menu extends Model
      */
     final public function scopeType(Builder $query, string $type): void
     {
-        $query->whereHas(self::RELATIONSHIP_TYPE_OPTION, function (Builder $query) use ($type)
-        {
-            $query->where(FormNodeOption::VALUE, $type);
-        })->get();
-    }
-
-    #endregion
-
-    #region PUBLIC METHODS
-
-    /**
-     * @param string $filter
-     *
-     * @return array<string,mixed>
-     */
-    final public static function options(string $filter = ''): array
-    {
-        return static::getOptions(self::TYPE, $filter, [
-            self::ID,
-            self::NAME,
-        ]);
+        $query->where(self::TYPE, $type);;
     }
 
     #endregion

@@ -1,15 +1,14 @@
 <?php
 
-namespace Narsil\Framework\Models\Navigations;
+namespace Narsil\Menus\Models;
 
 #region USE
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Narsil\Forms\Models\FormNodeOption;
-use Narsil\Framework\Enums\VisibilityEnum;
 use Narsil\Storage\Models\Icon;
+use Narsil\Menus\Enums\VisibilityEnum;
 
 #endregion
 
@@ -29,11 +28,17 @@ class MenuNode extends Model
      */
     public function __construct(array $attributes = [])
     {
+        $this->table = self::TABLE;
+
+        $this->casts = [
+            self::ACTIVE => 'boolean',
+        ];
+
         $this->hidden = [
             self::PREFIXABLE,
         ];
 
-        parent::__construct($attributes, self::TABLE);
+        parent::__construct($attributes);
     }
 
     #endregion
@@ -43,11 +48,19 @@ class MenuNode extends Model
     /**
      * @var string
      */
+    final public const ACTIVE = 'active';
+    /**
+     * @var string
+     */
     final public const BACKGROUND = 'background';
     /**
      * @var string
      */
     final public const ICON_ID = 'icon_id';
+    /**
+     * @var string
+     */
+    final public const ID = 'id';
     /**
      * @var string
      */
@@ -69,10 +82,6 @@ class MenuNode extends Model
      * @var string
      */
     final public const RELATIONSHIP_ICON = 'icon';
-    /**
-     * @var string
-     */
-    final public const RELATIONSHIP_VISIBILITY_OPTION = 'visiblity_option';
 
     /**
      * @var string
@@ -95,18 +104,6 @@ class MenuNode extends Model
         );
     }
 
-    /**
-     * @return HasOne
-     */
-    final public function visiblity_option(): HasOne
-    {
-        return $this->hasOne(
-            FormNodeOption::class,
-            FormNodeOption::ID,
-            self::VISIBILITY
-        );
-    }
-
     #endregion
 
     #region SCOPES
@@ -122,26 +119,21 @@ class MenuNode extends Model
         $query->whereRaw('? REGEXP ' . self::URL, [$url]);
     }
 
-    #endregion
-
-    #region PUBLIC METHODS
-
     /**
-     * @return array
+     * @param Builder $query
+     *
+     * @return void
      */
-    final public static function pages(): array
+    final public function scopePages(Builder $query): void
     {
-        $pages = MenuNode::query()
-            ->where(self::VISIBILITY, '!=', VisibilityEnum::GUEST->value)
-            ->where(self::URL, 'LIKE', '/%')
-            ->where(self::URL, '!=', '/logout')
-            ->get()
+        $query
             ->select([
                 MenuNode::LABEL,
                 MenuNode::URL
-            ])->toArray();
-
-        return $pages;
+            ])
+            ->where(self::VISIBILITY, '!=', VisibilityEnum::GUEST->value)
+            ->where(self::URL, 'like', '/%')
+            ->where(self::URL, '!=', '/logout');
     }
 
     #endregion

@@ -1,13 +1,12 @@
 <?php
 
-namespace Narsil\Framework\Models\Navigations;
+namespace Narsil\Menus\Models;
 
 #region USE
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Narsil\Framework\Interfaces\INodeTrait;
-use Narsil\Framework\Traits\NodeTrait;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Narsil\Tree\Models\NodeModel;
 
 #endregion
 
@@ -16,59 +15,19 @@ use Narsil\Framework\Traits\NodeTrait;
  *
  * @author Jonathan Rigaux
  */
-class MenuHasNode extends Model
+class MenuHasNode extends NodeModel
 {
-    use NodeTrait;
-
-    #region CONSTRUCTOR
-
-    /**
-     * @param array $attributes
-     *
-     * @return void
-     */
-    public function __construct(array $attributes = [])
-    {
-        $this->table = self::TABLE;
-
-        $this->guarded = [];
-
-        $this->with = [
-            self::RELATIONSHIP_MENU_NODE,
-        ];
-
-        parent::__construct($attributes);
-    }
-
-    #endregion
-
     #region CONSTANTS
 
     /**
      * @var string
      */
-    final public const ID = 'id';
-    /**
-     * @var string
-     */
     final public const MENU_ID = 'menu_id';
-    /**
-     * @var string
-     */
-    final public const MENU_NODE_ID = 'menu_node_id';
-    /**
-     * @var string
-     */
-    final public const NODE_ID = 'node_id';
 
     /**
      * @var string
      */
     final public const RELATIONSHIP_MENU = 'menu';
-    /**
-     * @var string
-     */
-    final public const RELATIONSHIP_MENU_NODE = 'menu_node';
 
     /**
      * @var string
@@ -92,13 +51,13 @@ class MenuHasNode extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return MorphTo
      */
-    final public function menu_node(): BelongsTo
+    final public function target(): MorphTo
     {
         return $this->belongsTo(
             MenuNode::class,
-            self::MENU_NODE_ID,
+            self::TARGET_ID,
             MenuNode::ID,
         );
     }
