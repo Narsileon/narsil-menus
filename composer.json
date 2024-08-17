@@ -63,7 +63,7 @@
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Narsil\\Menus\\NarsilTableServiceProvider"
+				"Narsil\\Menus\\NarsilMenusServiceProvider"
 			]
 		}
 	},
