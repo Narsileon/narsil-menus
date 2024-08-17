@@ -62,7 +62,7 @@ return new class extends Migration
             $table
                 ->string(Menu::TYPE);
             $table
-                ->string(Menu::NAME);
+                ->trans(Menu::NAME);
             $table
                 ->timestamps();
 

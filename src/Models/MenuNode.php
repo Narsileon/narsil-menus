@@ -7,6 +7,7 @@ namespace Narsil\Menus\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Narsil\Localization\Casts\TransAttribute;
 use Narsil\Storage\Models\Icon;
 use Narsil\Menus\Enums\VisibilityEnum;
 
@@ -32,6 +33,7 @@ class MenuNode extends Model
 
         $this->casts = [
             self::ACTIVE => 'boolean',
+            self::LABEL => TransAttribute::class,
         ];
 
         $this->hidden = [

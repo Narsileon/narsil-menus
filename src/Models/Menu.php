@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Narsil\Localization\Casts\TransAttribute;
 use Narsil\Menus\Enums\MenuEnum;
 use Narsil\Menus\Enums\VisibilityEnum;
 
@@ -31,6 +32,7 @@ class Menu extends Model
     {
         $this->casts = [
             self::ACTIVE => 'boolean',
+            self::NAME => TransAttribute::class,
         ];
 
         $this->with = [
