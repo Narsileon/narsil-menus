@@ -2099,12 +2099,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-tree.git",
-                "reference": "a908dd34e59c4e756f2919889a30ee883d94eb7c"
+                "reference": "c109485788cfd4445ee6d7f127716e0edb14b862"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-tree/zipball/a908dd34e59c4e756f2919889a30ee883d94eb7c",
-                "reference": "a908dd34e59c4e756f2919889a30ee883d94eb7c",
+                "url": "https://api.github.com/repos/Narsileon/narsil-tree/zipball/c109485788cfd4445ee6d7f127716e0edb14b862",
+                "reference": "c109485788cfd4445ee6d7f127716e0edb14b862",
                 "shasum": ""
             },
             "require": {
@@ -2151,7 +2151,7 @@
                 "source": "https://github.com/Narsileon/narsil-tree/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-tree/issues"
             },
-            "time": "2024-08-17T10:07:46+00:00"
+            "time": "2024-08-17T10:21:42+00:00"
         },
         {
             "name": "narsil/ui",
