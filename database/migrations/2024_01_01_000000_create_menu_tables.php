@@ -86,9 +86,10 @@ return new class extends Migration
 
         Schema::create(MenuHasNode::TABLE, function (Blueprint $table)
         {
-            $table->node(MenuHasNode::TABLE);
-
-            $table->foreignId(MenuHasNode::MENU_ID)
+            $table
+                ->node(MenuHasNode::TABLE);
+            $table
+                ->foreignId(MenuHasNode::MENU_ID)
                 ->constrained(Menu::TABLE, Menu::ID)
                 ->cascadeOnDelete();
         });

@@ -6,6 +6,7 @@ namespace Narsil\Menus;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Narsil\Menus\Commands\SyncMenusCommand;
 use Narsil\Menus\Models\Menu;
 use Narsil\Menus\Models\MenuNode;
 use Narsil\Menus\Policies\MenuNodePolicy;
@@ -27,6 +28,7 @@ final class NarsilMenusServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->bootCommands();
         $this->bootMigrations();
         $this->bootPolicies();
         $this->bootTranslations();
@@ -35,6 +37,16 @@ final class NarsilMenusServiceProvider extends ServiceProvider
     #endregion
 
     #region PRIVATE METHODS
+
+    /**
+     * @return void
+     */
+    private function bootCommands(): void
+    {
+        $this->commands([
+            SyncMenusCommand::class,
+        ]);
+    }
 
     /**
      * @return void
