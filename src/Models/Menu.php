@@ -30,16 +30,22 @@ class Menu extends Model
      */
     public function __construct(array $attributes = [])
     {
+        $this->table = self::TABLE;
+
         $this->casts = [
             self::ACTIVE => 'boolean',
             self::NAME => TransAttribute::class,
+        ];
+
+        $this->guarded = [
+            self::ID,
         ];
 
         $this->with = [
             self::RELATIONSHIP_NODES,
         ];
 
-        parent::__construct($attributes, self::TABLE);
+        parent::__construct($attributes);
     }
 
     #endregion

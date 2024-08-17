@@ -36,6 +36,10 @@ class MenuNode extends Model
             self::LABEL => TransAttribute::class,
         ];
 
+        $this->guarded = [
+            self::ID,
+        ];
+
         $this->hidden = [
             self::PREFIXABLE,
         ];

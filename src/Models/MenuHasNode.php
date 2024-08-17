@@ -17,6 +17,26 @@ use Narsil\Tree\Models\NodeModel;
  */
 class MenuHasNode extends NodeModel
 {
+    #region CONSTRUCTOR
+
+    /**
+     * @param array $attributes
+     *
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->table = self::TABLE;
+
+        $this->guarded = [
+            self::ID,
+        ];
+
+        parent::__construct($attributes);
+    }
+
+    #endregion
+
     #region CONSTANTS
 
     /**
