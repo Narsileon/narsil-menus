@@ -5,7 +5,6 @@ namespace Narsil\Menus\Models;
 #region USE
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Narsil\Tree\Models\NodeModel;
 
 #endregion
@@ -67,18 +66,6 @@ class MenuHasNode extends NodeModel
             Menu::class,
             self::MENU_ID,
             Menu::ID
-        );
-    }
-
-    /**
-     * @return MorphTo
-     */
-    final public function target(): MorphTo
-    {
-        return $this->belongsTo(
-            MenuNode::class,
-            self::TARGET_ID,
-            MenuNode::ID,
         );
     }
 
