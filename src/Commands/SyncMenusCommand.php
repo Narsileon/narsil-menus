@@ -109,7 +109,14 @@ class SyncMenusCommand extends Command
 
         foreach ($menuClassNames as $menuClassName)
         {
-            foreach ($menuClassName::getBackendMenu() as $node)
+            $nodes = match ($menu->{Menu::TYPE})
+            {
+                MenuEnum::BACKEND->value => $menuClassName::getBackendMenu(),
+                MenuEnum::FOOTER->value => $menuClassName::getFooterMenu(),
+                MenuEnum::HEADER->value => $menuClassName::getHeaderMenu(),
+            };
+
+            foreach ($nodes as $node)
             {
                 $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON));
 
