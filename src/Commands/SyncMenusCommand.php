@@ -135,7 +135,7 @@ class SyncMenusCommand extends Command
                     MenuHasNode::TARGET_ID => $menuNode->{MenuNode::ID},
                 ]);
 
-                $menuHasNode->target()->attach($menuNode);
+                $menuHasNode->target()->associate($menuNode);
 
                 $menuHasNode->save();
             }
