@@ -119,7 +119,8 @@ class SyncMenusCommand extends Command
                 }
 
                 $menuNode = MenuNode::firstOrCreate([
-                    MenuNode::URL => Arr::get($node, MenuNode::URL)
+                    MenuNode::VISIBILITY => Arr::get($node, MenuNode::VISIBILITY),
+                    MenuNode::URL => Arr::get($node, MenuNode::URL),
                 ], [$node]);
 
                 $menuHasNode = MenuHasNode::firstOrNew([
