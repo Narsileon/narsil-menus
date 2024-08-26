@@ -123,6 +123,8 @@ return new class extends Migration
                 ->icon(MenuNode::ICON_ID);
             $table
                 ->color(MenuNode::BACKGROUND);
+            $table
+                ->timestamps();
         });
     }
 
