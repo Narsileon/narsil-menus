@@ -18,7 +18,7 @@ interface NavigationMenuAsideRendererProps {
 
 const NavigationMenuAsideRenderer = ({ nodes }: NavigationMenuAsideRendererProps) => {
 	return nodes.map((node) => {
-		return node.children.length > 0 ? (
+		return node.children?.length > 0 ? (
 			<NavigationMenuItem key={node.id}>
 				<Collapsible>
 					{node.target.url ? (
@@ -43,11 +43,12 @@ const NavigationMenuAsideRenderer = ({ nodes }: NavigationMenuAsideRendererProps
 				</Collapsible>
 			</NavigationMenuItem>
 		) : (
-			<NavigationMenuItem key={node.id}>
-				<NavigationMenuLink
-					className={cn(navigationMenuTriggerStyle())}
-					asChild={true}
-				>
+			<NavigationMenuItem
+				className={cn(navigationMenuTriggerStyle())}
+				asChild={true}
+				key={node.id}
+			>
+				<NavigationMenuLink asChild={true}>
 					<Link href={node.target.url}>
 						{node.target.icon ? <Svg src={node.target.icon} /> : null}
 						{upperFirst(node.target.label)}
