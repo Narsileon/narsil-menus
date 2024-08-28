@@ -120,6 +120,11 @@ class SyncMenusCommand extends Command
             {
                 $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON));
 
+                if (!$icon)
+                {
+                    $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON) . '.svg');
+                }
+
                 if ($icon)
                 {
                     Arr::set($node, MenuNode::ICON_ID, $icon->{Icon::ID});
