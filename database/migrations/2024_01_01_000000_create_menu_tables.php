@@ -24,8 +24,6 @@ return new class extends Migration
         $this->createMenusTable();
         $this->createMenuNodesTable();
         $this->createMenuHasNodesTable();
-
-        Artisan::call('narsil:sync-menus');
     }
 
     /**
