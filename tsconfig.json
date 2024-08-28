@@ -14,6 +14,7 @@
 		"paths": {
 			"@narsil-forms/*": ["./vendor/narsil/forms/resources/js/*"],
 			"@narsil-menus/*": ["./resources/js/*"],
+			"@narsil-storage/*": ["./vendor/narsil/storage/resources/js/*"],
 			"@narsil-tree/*": ["./vendor/narsil/tree/resources/js/*"],
 			"@narsil-ui/*": ["./vendor/narsil/ui/resources/js/*"]
 		},

@@ -29,7 +29,7 @@ const NavigationMenuAsideRenderer = ({ nodes }: NavigationMenuAsideRendererProps
 						</div>
 					) : (
 						<CollapsibleTrigger>
-							{node.target.icon ? <Svg src={node.target.icon} /> : null}
+							{node.target.icon ? <Svg src={node.target.icon.src} /> : null}
 							{upperFirst(node.target.label)}
 							<span className='sr-only'>Toggle</span>
 						</CollapsibleTrigger>
@@ -50,7 +50,7 @@ const NavigationMenuAsideRenderer = ({ nodes }: NavigationMenuAsideRendererProps
 			>
 				<NavigationMenuLink asChild={true}>
 					<Link href={node.target.url}>
-						{node.target.icon ? <Svg src={node.target.icon} /> : null}
+						{node.target.icon ? <Svg src={node.target.icon.src} /> : null}
 						{upperFirst(node.target.label)}
 					</Link>
 				</NavigationMenuLink>
