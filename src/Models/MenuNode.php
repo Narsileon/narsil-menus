@@ -44,6 +44,10 @@ class MenuNode extends Model
             self::PREFIXABLE,
         ];
 
+        $this->with = [
+            self::RELATIONSHIP_ICON,
+        ];
+
         parent::__construct($attributes);
     }
 
