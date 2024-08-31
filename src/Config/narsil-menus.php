@@ -1,5 +1,11 @@
 <?php
 
+#region USE
+
+use Narsil\Menus\Http\Menus\MenusMenu;
+
+#endregion
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -10,5 +16,7 @@ return [
     |
     */
 
-    'menus' => [],
+    'menus' => [
+        MenusMenu::class,
+    ],
 ];
