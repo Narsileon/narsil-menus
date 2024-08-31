@@ -69,6 +69,7 @@ class SyncMenusCommand extends Command
         $this->menus = Menu::all()->keyBy(Menu::TYPE);
 
         $this->createMenus();
+        $this->createNodes();
 
         $this->info('Menu tables have been successfully synced with the menu files.');
     }
@@ -143,6 +144,39 @@ class SyncMenusCommand extends Command
                 $menuHasNode->target()->associate($menuNode);
 
                 $menuHasNode->save();
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function createNodes(): void
+    {
+        $menuClassNames = Config::get(MenusConfig::MENUS, []);
+
+        foreach ($menuClassNames as $menuClassName)
+        {
+            $nodes = $menuClassName::getMenuNodes();
+
+            foreach ($nodes as $node)
+            {
+                $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON));
+
+                if (!$icon)
+                {
+                    $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON) . '.svg');
+                }
+
+                if ($icon)
+                {
+                    Arr::set($node, MenuNode::ICON_ID, $icon->{Icon::ID});
+                }
+
+                $menuNode = MenuNode::firstOrCreate([
+                    MenuNode::VISIBILITY => Arr::get($node, MenuNode::VISIBILITY),
+                    MenuNode::URL => Arr::get($node, MenuNode::URL),
+                ], $node);
             }
         }
     }

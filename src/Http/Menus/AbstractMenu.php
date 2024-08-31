@@ -35,5 +35,13 @@ class AbstractMenu
         return [];
     }
 
+    /**
+     * @return array
+     */
+    public static function getMenuNodes(): array
+    {
+        return [];
+    }
+
     #endregion
 }
