@@ -12,7 +12,7 @@ abstract class MenusConfig
     #region CONSTANTS
 
     /**
-     * @var string
+     * @var string List of menus classes.
      */
     final public const MENUS = 'narsil-menus.menus';
 

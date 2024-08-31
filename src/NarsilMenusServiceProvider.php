@@ -31,6 +31,7 @@ final class NarsilMenusServiceProvider extends ServiceProvider
         $this->bootCommands();
         $this->bootMigrations();
         $this->bootPolicies();
+        $this->bootPublishes();
         $this->bootTranslations();
     }
 
@@ -65,6 +66,16 @@ final class NarsilMenusServiceProvider extends ServiceProvider
     {
         Gate::policy(Menu::class, MenuPolicy::class);
         Gate::policy(MenuNode::class, MenuNodePolicy::class);
+    }
+
+    /**
+     * @return void
+     */
+    private function bootPublishes(): void
+    {
+        $this->publishes([
+            __DIR__ . '/Config' => config_path(),
+        ], 'config');
     }
 
     /**
