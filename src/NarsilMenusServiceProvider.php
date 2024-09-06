@@ -84,6 +84,7 @@ final class NarsilMenusServiceProvider extends ServiceProvider
     private function bootTranslations(): void
     {
         $this->loadJsonTranslationsFrom(__DIR__ . '/../lang', 'menus');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'menus');
     }
 
     #endregion
