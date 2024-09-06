@@ -37,7 +37,7 @@ class MenuNodeDataTableCollection extends DataTableCollection
             $attributes = $item->toArray();
 
             $attributes[MenuNode::RELATIONSHIP_ICON] = [
-                Language::LABEL => $item->{MenuNode::RELATIONSHIP_ICON}->{Icon::PATH},
+                Icon::PATH => $item->{MenuNode::RELATIONSHIP_ICON}?->{Icon::PATH},
             ];
 
             $attributes[MenuNode::ICON_ID] = null;

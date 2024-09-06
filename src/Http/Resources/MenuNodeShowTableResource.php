@@ -33,7 +33,7 @@ class MenuNodeShowTableResource extends ShowTableResource
         $attributes = $this->resource->toArray();
 
         $attributes[MenuNode::RELATIONSHIP_ICON] = [
-            Language::LABEL => $this->resource->{MenuNode::RELATIONSHIP_ICON}->{Icon::PATH},
+            Icon::PATH => $this->resource->{MenuNode::RELATIONSHIP_ICON}?->{Icon::PATH},
         ];
 
         $attributes[MenuNode::ICON_ID] = null;
