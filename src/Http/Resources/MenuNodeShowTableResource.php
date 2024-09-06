@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Legals\Http\Resources;
+namespace Narsil\Menus\Http\Resources;
 
 #region USE
 
@@ -19,7 +19,7 @@ use Narsil\Tables\Http\Resources\ShowTableResource;
  *
  * @author Jonathan Rigaux
  */
-class ImprintShowTableResource extends ShowTableResource
+class MenuNodeShowTableResource extends ShowTableResource
 {
     #region PUBLIC METHODS
 
