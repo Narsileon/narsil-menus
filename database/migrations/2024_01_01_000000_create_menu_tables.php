@@ -120,6 +120,8 @@ return new class extends Migration
             $table
                 ->trans(MenuNode::LABEL);
             $table
+                ->trans(MenuNode::DESCRIPTION);
+            $table
                 ->icon(MenuNode::ICON_ID);
             $table
                 ->color(MenuNode::BACKGROUND);

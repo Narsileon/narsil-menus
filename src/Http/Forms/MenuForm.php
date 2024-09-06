@@ -25,14 +25,13 @@ class MenuForm extends AbstractForm
     #region CONSTRUCTOR
 
     /**
+     * @param mixed $resource
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct(mixed $resource)
     {
-        parent::__construct(
-            slug: 'menu',
-            title: 'Menu',
-        );
+        parent::__construct($resource, 'Menu', 'menu');
     }
 
     #endregion

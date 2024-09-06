@@ -66,6 +66,10 @@ class MenuNode extends Model
     /**
      * @var string
      */
+    final public const DESCRIPTION = 'description';
+    /**
+     * @var string
+     */
     final public const ICON_ID = 'icon_id';
     /**
      * @var string

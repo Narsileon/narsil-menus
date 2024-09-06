@@ -25,14 +25,13 @@ class MenuNodeForm extends AbstractForm
     #region CONSTRUCTOR
 
     /**
+     * @param mixed $resource
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct(mixed $resource)
     {
-        parent::__construct(
-            slug: 'menu-node',
-            title: 'Menu node',
-        );
+        parent::__construct($resource, 'Menu node', 'menu-node');
     }
 
     #endregion
@@ -50,6 +49,7 @@ class MenuNodeForm extends AbstractForm
                 ->children([
                     (new FormString(MenuNode::URL)),
                     (new FormString(MenuNode::LABEL)),
+                    (new FormString(MenuNode::DESCRIPTION)),
                     (new FormSelect(MenuNode::VISIBILITY))
                         ->options([[
                             FormNodeOption::LABEL => 'Auths',

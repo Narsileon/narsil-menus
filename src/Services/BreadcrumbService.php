@@ -28,7 +28,10 @@ final class BreadcrumbService
 
         foreach ($breadcrumbNodes as $breadcrumbNode)
         {
-            $breadcrumb[$breadcrumbNode->{MenuNode::URL}] = $breadcrumbNode->{MenuNode::LABEL};
+            $breadcrumb[$breadcrumbNode->{MenuNode::URL}] = [
+                MenuNode::LABEL => $breadcrumbNode->{MenuNode::LABEL},
+                MenuNode::DESCRIPTION => $breadcrumbNode->{MenuNode::DESCRIPTION}
+            ];
         }
 
         return $breadcrumb;
