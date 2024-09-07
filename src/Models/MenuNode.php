@@ -40,10 +40,6 @@ class MenuNode extends Model
             self::ID,
         ];
 
-        $this->hidden = [
-            self::PREFIXABLE,
-        ];
-
         $this->with = [
             self::RELATIONSHIP_ICON,
         ];
@@ -66,10 +62,6 @@ class MenuNode extends Model
     /**
      * @var string
      */
-    final public const DESCRIPTION = 'description';
-    /**
-     * @var string
-     */
     final public const ICON_ID = 'icon_id';
     /**
      * @var string
@@ -79,10 +71,6 @@ class MenuNode extends Model
      * @var string
      */
     final public const LABEL = 'label';
-    /**
-     * @var string
-     */
-    final public const PREFIXABLE = 'prefixable';
     /**
      * @var string
      */

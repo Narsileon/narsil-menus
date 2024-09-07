@@ -1,6 +1,7 @@
 {
 	"Auths": "Authenticated users",
 	"Backend": "Backend",
+	"Decoration": "Decoration",
 	"Footer": "Footer",
 	"Guests": "Unauthenticated users",
 	"Header": "Header",
