@@ -49,7 +49,6 @@ class MenuNodeForm extends AbstractForm
                 ->children([
                     (new FormString(MenuNode::URL)),
                     (new FormString(MenuNode::LABEL)),
-                    (new FormString(MenuNode::DESCRIPTION)),
                     (new FormSelect(MenuNode::VISIBILITY))
                         ->options([[
                             FormNodeOption::LABEL => 'Auths',
