@@ -31,6 +31,10 @@ class MenuHasNode extends NodeModel
             self::ID,
         ];
 
+        $this->with = [
+            self::RELATIONSHIP_TARGET,
+        ];
+
         parent::__construct($attributes);
     }
 
