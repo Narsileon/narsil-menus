@@ -49,7 +49,8 @@ class MenuNodeForm extends AbstractForm
             (new FormCard('default'))
                 ->label('Settings')
                 ->children([
-                    (new FormTrans(MenuNode::LABEL)),
+                    (new FormTrans(MenuNode::LABEL))
+                        ->required(),
                     (new FormString(MenuNode::URL)),
                     (new FormSelect(MenuNode::VISIBILITY))
                         ->options([[
@@ -61,7 +62,8 @@ class MenuNodeForm extends AbstractForm
                         ], [
                             FormNodeOption::LABEL => 'Users',
                             FormNodeOption::VALUE => VisibilityEnum::USER->value,
-                        ]]),
+                        ]])
+                        ->required(),
                 ]),
             (new FormCard('decoration'))
                 ->label('Decoration')
