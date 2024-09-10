@@ -9,6 +9,7 @@ use Narsil\Forms\Builder\AbstractFormNode;
 use Narsil\Forms\Builder\Elements\FormCard;
 use Narsil\Forms\Builder\Inputs\FormSelect;
 use Narsil\Forms\Builder\Inputs\FormString;
+use Narsil\Forms\Builder\Inputs\FormTrans;
 use Narsil\Forms\Models\FormNodeOption;
 use Narsil\Menus\Enums\VisibilityEnum;
 use Narsil\Menus\Models\MenuNode;
@@ -48,8 +49,8 @@ class MenuNodeForm extends AbstractForm
             (new FormCard('default'))
                 ->label('Settings')
                 ->children([
+                    (new FormTrans(MenuNode::LABEL)),
                     (new FormString(MenuNode::URL)),
-                    (new FormString(MenuNode::LABEL)),
                     (new FormSelect(MenuNode::VISIBILITY))
                         ->options([[
                             FormNodeOption::LABEL => 'Auths',
@@ -63,7 +64,7 @@ class MenuNodeForm extends AbstractForm
                         ]]),
                 ]),
             (new FormCard('decoration'))
-                ->label('common.decoration')
+                ->label('Decoration')
                 ->children([
                     (new FormSelect(MenuNode::ICON_ID))
                         ->fetch('/icons/fetch')

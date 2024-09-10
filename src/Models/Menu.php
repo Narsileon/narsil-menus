@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Narsil\Localization\Casts\TransAttribute;
 use Narsil\Menus\Enums\MenuEnum;
 use Narsil\Menus\Enums\VisibilityEnum;
+use Narsil\Tables\Constants\Types;
 
 #endregion
 
@@ -33,7 +34,7 @@ class Menu extends Model
         $this->table = self::TABLE;
 
         $this->casts = [
-            self::ACTIVE => 'boolean',
+            self::ACTIVE => Types::BOOLEAN,
             self::NAME => TransAttribute::class,
         ];
 

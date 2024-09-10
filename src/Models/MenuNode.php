@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Narsil\Localization\Casts\TransAttribute;
+use Narsil\Localization\Interfaces\IHasTranslations;
+use Narsil\Localization\Traits\HasTranslations;
 use Narsil\Storage\Models\Icon;
 use Narsil\Menus\Enums\VisibilityEnum;
+use Narsil\Tables\Constants\Types;
 
 #endregion
 
@@ -18,8 +21,10 @@ use Narsil\Menus\Enums\VisibilityEnum;
  *
  * @author Jonathan Rigaux
  */
-class MenuNode extends Model
+class MenuNode extends Model implements IHasTranslations
 {
+    use HasTranslations;
+
     #region CONSTRUCTOR
 
     /**
@@ -32,7 +37,7 @@ class MenuNode extends Model
         $this->table = self::TABLE;
 
         $this->casts = [
-            self::ACTIVE => 'boolean',
+            self::ACTIVE => Types::BOOLEAN,
             self::LABEL => TransAttribute::class,
         ];
 
