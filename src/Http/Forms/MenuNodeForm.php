@@ -12,6 +12,7 @@ use Narsil\Forms\Builder\Inputs\FormString;
 use Narsil\Forms\Models\FormNodeOption;
 use Narsil\Menus\Enums\VisibilityEnum;
 use Narsil\Menus\Models\MenuNode;
+use Narsil\Storage\Models\Icon;
 
 #endregion
 
@@ -64,7 +65,10 @@ class MenuNodeForm extends AbstractForm
             (new FormCard('decoration'))
                 ->label('common.decoration')
                 ->children([
-                    (new FormString(MenuNode::ICON_ID)),
+                    (new FormSelect(MenuNode::ICON_ID))
+                        ->fetch('/icons/fetch')
+                        ->labelKey(Icon::PATH)
+                        ->valueKey(Icon::ID),
                     (new FormString(MenuNode::BACKGROUND)),
                 ]),
         ];
