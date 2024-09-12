@@ -31,7 +31,6 @@ const NavigationMenuAsideRenderer = ({ nodes }: NavigationMenuAsideRendererProps
 						<CollapsibleTrigger>
 							{node.target.icon ? <Svg src={node.target.icon.src} /> : null}
 							{upperFirst(node.target.label)}
-							<span className='sr-only'>Toggle</span>
 						</CollapsibleTrigger>
 					)}
 
