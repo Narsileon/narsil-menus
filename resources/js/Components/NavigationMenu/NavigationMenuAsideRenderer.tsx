@@ -1,10 +1,10 @@
-import { cn } from "@narsil-ui/Components";
 import { Link } from "@inertiajs/react";
 import { navigationMenuTriggerStyle } from "@narsil-ui/Components/NavigationMenu/NavigationMenuTrigger";
 import { upperFirst } from "lodash";
 import Collapsible from "@narsil-ui/Components/Collapsible/Collapsible";
 import CollapsibleContent from "@narsil-ui/Components/Collapsible/CollapsibleContent";
 import CollapsibleTrigger from "@narsil-ui/Components/Collapsible/CollapsibleTrigger";
+import FavoriteButton from "@narsil-auth/Components/Favorite/FavoriteButton";
 import NavigationMenuItem from "@narsil-ui/Components/NavigationMenu/NavigationMenuItem";
 import NavigationMenuLink from "@narsil-ui/Components/NavigationMenu/NavigationMenuLink";
 import NavigationMenuList from "@narsil-ui/Components/NavigationMenu/NavigationMenuList";
@@ -43,16 +43,19 @@ const NavigationMenuAsideRenderer = ({ nodes }: NavigationMenuAsideRendererProps
 			</NavigationMenuItem>
 		) : (
 			<NavigationMenuItem
-				className={cn(navigationMenuTriggerStyle())}
-				asChild={true}
+				className='group flex w-full items-center'
 				key={node.id}
 			>
-				<NavigationMenuLink asChild={true}>
+				<NavigationMenuLink
+					className={navigationMenuTriggerStyle()}
+					asChild={true}
+				>
 					<Link href={node.target.url}>
 						{node.target.icon ? <Svg src={node.target.icon.src} /> : null}
 						{upperFirst(node.target.label)}
 					</Link>
 				</NavigationMenuLink>
+				<FavoriteButton />
 			</NavigationMenuItem>
 		);
 	});
