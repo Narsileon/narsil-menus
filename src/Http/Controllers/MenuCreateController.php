@@ -6,12 +6,9 @@ namespace Narsil\Menus\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 use Inertia\Response;
-use Narsil\Forms\Constants\FormsConfig;
-use Narsil\Forms\Http\Resources\FormResource;
-use Narsil\Menus\Http\Forms\MenuForm;
+use Narsil\Menus\Http\Forms\MenuFormResource;
 use Narsil\Menus\Models\Menu;
 use Narsil\Policies\Policies\AbstractPolicy;
 use Narsil\Tables\Http\Controllers\Controller;
@@ -23,7 +20,7 @@ use Narsil\Tables\Http\Controllers\Controller;
  *
  * @author Jonathan Rigaux
  */
-final class ResourceCreateController extends Controller
+final class MenuCreateController extends Controller
 {
     #region PUBLIC METHODS
 
@@ -36,7 +33,7 @@ final class ResourceCreateController extends Controller
     {
         $this->authorize(AbstractPolicy::CREATE, Menu::class);
 
-        $resource = new MenuForm(new Menu());
+        $resource = new MenuFormResource(new Menu());
 
         return Inertia::render('narsil/tables::Resources/Create/Index', compact(
             'resource',

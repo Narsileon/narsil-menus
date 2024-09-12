@@ -1,15 +1,15 @@
 <?php
 
-namespace Narsil\Menus\Http\Forms;
+namespace Narsil\Menus\Http\Resources\MenuNodes;
 
 #region USE
 
-use Narsil\Forms\Builder\AbstractForm;
 use Narsil\Forms\Builder\AbstractFormNode;
 use Narsil\Forms\Builder\Elements\FormCard;
 use Narsil\Forms\Builder\Inputs\FormSelect;
 use Narsil\Forms\Builder\Inputs\FormString;
 use Narsil\Forms\Builder\Inputs\FormTrans;
+use Narsil\Forms\Http\Resources\AbstractFormResource;
 use Narsil\Forms\Models\FormNodeOption;
 use Narsil\Menus\Enums\VisibilityEnum;
 use Narsil\Menus\Models\MenuNode;
@@ -22,7 +22,7 @@ use Narsil\Storage\Models\Icon;
  *
  * @author Jonathan Rigaux
  */
-class MenuNodeForm extends AbstractForm
+class MenuNodeFormResource extends AbstractFormResource
 {
     #region CONSTRUCTOR
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Menus\Http\Resources;
+namespace Narsil\Menus\Http\Resources\MenuNodes;
 
 #region USE
 
@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use JsonSerializable;
 use Narsil\Menus\Models\MenuNode;
-use Narsil\Localization\Models\Language;
 use Narsil\Storage\Models\Icon;
 use Narsil\Tables\Constants\Types;
 use Narsil\Tables\Http\Resources\DataTableCollection;

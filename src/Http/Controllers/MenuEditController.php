@@ -11,7 +11,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Narsil\Forms\Constants\FormsConfig;
 use Narsil\Forms\Http\Resources\FormResource;
-use Narsil\Menus\Http\Forms\MenuForm;
+use Narsil\Menus\Http\Forms\MenuFormResource;
 use Narsil\Menus\Models\Menu;
 use Narsil\Menus\Models\MenuHasNode;
 use Narsil\Policies\Policies\AbstractPolicy;
@@ -27,7 +27,7 @@ use Narsil\Tree\Http\Resources\NestedNodeResource;
  *
  * @author Jonathan Rigaux
  */
-final class ResourceEditController extends Controller
+final class MenuEditController extends Controller
 {
     #region PUBLIC METHODS
 
@@ -41,7 +41,7 @@ final class ResourceEditController extends Controller
     {
         $this->authorize(AbstractPolicy::UPDATE, Menu::class);
 
-        $resource = new MenuForm($menu);
+        $resource = new MenuFormResource($menu);
 
         $comments = $this->getComments(Menu::class, $menu->{Menu::ID});
 
@@ -76,20 +76,6 @@ final class ResourceEditController extends Controller
             ->get();
 
         return new ModelCommentCollection($comments);
-    }
-
-    /**
-     * @param string $model
-     *
-     * @return string
-     */
-    private function getFormClass(string $model): string
-    {
-        $formClasses = Config::get(FormsConfig::FORMS, []);
-
-        $formClass = $formClasses[$model] ?? FormResource::class;
-
-        return $formClass;
     }
 
     #endregion
