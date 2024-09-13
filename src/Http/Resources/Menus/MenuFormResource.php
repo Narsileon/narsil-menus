@@ -101,7 +101,8 @@ class MenuFormResource extends AbstractFormResource
                     (new FormTab('content'))
                         ->label('Content')
                         ->children([
-                            (new FormTree('nodes')),
+                            (new FormTree('nodes'))
+                                ->labelKey('target.label'),
                         ]),
                 ]),
         ];
