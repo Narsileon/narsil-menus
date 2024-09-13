@@ -6,8 +6,11 @@ namespace Narsil\Menus\Http\Resources\Menus;
 
 use Narsil\Forms\Builder\AbstractFormNode;
 use Narsil\Forms\Builder\Elements\FormCard;
+use Narsil\Forms\Builder\Elements\FormTab;
+use Narsil\Forms\Builder\Elements\FormTabs;
 use Narsil\Forms\Builder\Inputs\FormSelect;
 use Narsil\Forms\Builder\Inputs\FormString;
+use Narsil\Forms\Builder\Inputs\FormTree;
 use Narsil\Forms\Http\Resources\AbstractFormResource;
 use Narsil\Forms\Models\FormNodeOption;
 use Narsil\Menus\Enums\MenuEnum;
@@ -44,20 +47,32 @@ class MenuFormResource extends AbstractFormResource
     protected function getSchema(): array
     {
         return [
-            (new FormCard('default'))
+            (new FormTabs())
                 ->children([
-                    (new FormString(Menu::NAME)),
-                    (new FormSelect(Menu::TYPE))
-                        ->options([[
-                            FormNodeOption::LABEL => 'Backend',
-                            FormNodeOption::VALUE => MenuEnum::BACKEND->value,
-                        ], [
-                            FormNodeOption::LABEL => 'Footer',
-                            FormNodeOption::VALUE => MenuEnum::FOOTER->value,
-                        ], [
-                            FormNodeOption::LABEL => 'Header',
-                            FormNodeOption::VALUE => MenuEnum::HEADER->value,
-                        ]]),
+                    (new FormTab('main'))
+                        ->label('Main')
+                        ->children([
+                            (new FormCard())
+                                ->children([
+                                    (new FormString(Menu::NAME)),
+                                    (new FormSelect(Menu::TYPE))
+                                        ->options([[
+                                            FormNodeOption::LABEL => 'Backend',
+                                            FormNodeOption::VALUE => MenuEnum::BACKEND->value,
+                                        ], [
+                                            FormNodeOption::LABEL => 'Footer',
+                                            FormNodeOption::VALUE => MenuEnum::FOOTER->value,
+                                        ], [
+                                            FormNodeOption::LABEL => 'Header',
+                                            FormNodeOption::VALUE => MenuEnum::HEADER->value,
+                                        ]]),
+                                ]),
+                        ]),
+                    (new FormTab('content'))
+                        ->label('Content')
+                        ->children([
+                            (new FormTree('tree')),
+                        ]),
                 ]),
         ];
     }
