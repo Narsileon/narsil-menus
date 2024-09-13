@@ -3,8 +3,8 @@
 #region USE
 
 use Illuminate\Support\Facades\Route;
-use Narsil\Tables\Http\Controllers\ResourceCreateController;
-use Narsil\Tables\Http\Controllers\ResourceEditController;
+use Narsil\Menus\Http\Controllers\MenuCreateController;
+use Narsil\Menus\Http\Controllers\MenuEditController;
 
 #endregion
 
@@ -15,8 +15,8 @@ Route::prefix('backend')->name('backend.')->middleware([
     'can:backend_view',
 ])->group(function ()
 {
-    Route::get('menus/create', ResourceCreateController::class)
-        ->name('resources.create');
-    Route::get('menus/{id}/edit', ResourceEditController::class)
-        ->name('resources.edit');
+    Route::get('menus/create', MenuCreateController::class)
+        ->name('menus.create');
+    Route::get('menus/{id}/edit', MenuEditController::class)
+        ->name('menus.edit');
 });

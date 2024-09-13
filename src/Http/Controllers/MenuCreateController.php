@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Narsil\Menus\Http\Forms\MenuFormResource;
+use Narsil\Menus\Http\Resources\Menus\MenuFormResource;
 use Narsil\Menus\Models\Menu;
 use Narsil\Policies\Policies\AbstractPolicy;
 use Narsil\Tables\Http\Controllers\Controller;

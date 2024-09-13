@@ -6,17 +6,14 @@ namespace Narsil\Menus\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 use Inertia\Response;
-use Narsil\Forms\Constants\FormsConfig;
-use Narsil\Forms\Http\Resources\FormResource;
-use Narsil\Menus\Http\Forms\MenuFormResource;
+use Narsil\Menus\Http\Resources\Menus\MenuFormResource;
 use Narsil\Menus\Models\Menu;
 use Narsil\Menus\Models\MenuHasNode;
 use Narsil\Policies\Policies\AbstractPolicy;
 use Narsil\Tables\Http\Controllers\Controller;
-use Narsil\Tables\Http\Resources\ModelCommentCollection;
+use Narsil\Tables\Http\Resources\ModelComments\ModelCommentCollection;
 use Narsil\Tables\Models\ModelComment;
 use Narsil\Tree\Http\Resources\NestedNodeResource;
 
