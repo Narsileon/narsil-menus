@@ -4,6 +4,7 @@ namespace Narsil\Menus\Http\Resources\Menus;
 
 #region USE
 
+use Illuminate\Http\Request;
 use Narsil\Forms\Builder\AbstractFormNode;
 use Narsil\Forms\Builder\Elements\FormCard;
 use Narsil\Forms\Builder\Elements\FormTab;
@@ -15,6 +16,8 @@ use Narsil\Forms\Http\Resources\AbstractFormResource;
 use Narsil\Forms\Models\FormNodeOption;
 use Narsil\Menus\Enums\MenuEnum;
 use Narsil\Menus\Models\Menu;
+use Narsil\Menus\Models\MenuHasNode;
+use Narsil\Tree\Http\Resources\NestedNodeResource;
 
 #endregion
 
@@ -35,6 +38,33 @@ class MenuFormResource extends AbstractFormResource
     public function __construct(mixed $resource)
     {
         parent::__construct($resource, 'Menu', 'menu');
+    }
+
+    #endregion
+
+    #region PUBLIC METHODS
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function toArray(Request $request): array
+    {
+
+        if (!$this->resource)
+        {
+            return [];
+        }
+
+        $attributes = parent::toArray($request);
+
+        $nodes = $this->resource->{Menu::RELATIONSHIP_NODES}
+            ->where(MenuHasNode::PARENT_ID, null);
+
+        $attributes[Menu::RELATIONSHIP_NODES] = NestedNodeResource::collection($nodes);
+
+        return $attributes;
     }
 
     #endregion
@@ -71,7 +101,7 @@ class MenuFormResource extends AbstractFormResource
                     (new FormTab('content'))
                         ->label('Content')
                         ->children([
-                            (new FormTree('tree')),
+                            (new FormTree('nodes')),
                         ]),
                 ]),
         ];
