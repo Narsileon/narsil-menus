@@ -59,7 +59,9 @@ class MenuFormResource extends AbstractFormResource
 
         $attributes = parent::toArray($request);
 
-        $nodes = $this->resource->{Menu::RELATIONSHIP_NODES}
+        $nodes = $this->resource
+            ->load(Menu::RELATIONSHIP_NODES . '.' . MenuHasNode::RELATIONSHIP_CHILDREN)
+            ->{Menu::RELATIONSHIP_NODES}
             ->where(MenuHasNode::PARENT_ID, null);
 
         $attributes[Menu::RELATIONSHIP_NODES] = NestedNodeResource::collection($nodes);
