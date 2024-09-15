@@ -8,7 +8,6 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Narsil\Menus\Constants\MenusConfig;
 use Narsil\Menus\Enums\MenuEnum;
 use Narsil\Menus\Models\Menu;
 use Narsil\Menus\Models\MenuHasNode;
@@ -106,78 +105,35 @@ class SyncMenusCommand extends Command
      */
     protected function createMenuNodes(Menu $menu): void
     {
-        $menuClassNames = Config::get(MenusConfig::MENUS, []);
+        $nodes = Config::get("narsil-menus.$menu->type", []);
 
-        foreach ($menuClassNames as $menuClassName)
+        foreach ($nodes as $node)
         {
-            $nodes = match ($menu->{Menu::TYPE})
+            $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON));
+
+            if (!$icon)
             {
-                MenuEnum::BACKEND->value => $menuClassName::getBackendMenu(),
-                MenuEnum::FOOTER->value => $menuClassName::getFooterMenu(),
-                MenuEnum::HEADER->value => $menuClassName::getHeaderMenu(),
-            };
-
-            foreach ($nodes as $node)
-            {
-                $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON));
-
-                if (!$icon)
-                {
-                    $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON) . '.svg');
-                }
-
-                if ($icon)
-                {
-                    Arr::set($node, MenuNode::ICON_ID, $icon->{Icon::ID});
-                }
-
-                $menuNode = MenuNode::firstOrCreate([
-                    MenuNode::VISIBILITY => Arr::get($node, MenuNode::VISIBILITY),
-                    MenuNode::URL => Arr::get($node, MenuNode::URL),
-                ], $node);
-
-                $menuHasNode = MenuHasNode::firstOrNew([
-                    MenuHasNode::MENU_ID => $menu->{Menu::ID},
-                    MenuHasNode::TARGET_ID => $menuNode->{MenuNode::ID},
-                ]);
-
-                $menuHasNode->target()->associate($menuNode);
-
-                $menuHasNode->save();
+                $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON) . '.svg');
             }
-        }
-    }
 
-    /**
-     * @return void
-     */
-    protected function createNodes(): void
-    {
-        $menuClassNames = Config::get(MenusConfig::MENUS, []);
-
-        foreach ($menuClassNames as $menuClassName)
-        {
-            $nodes = $menuClassName::getMenuNodes();
-
-            foreach ($nodes as $node)
+            if ($icon)
             {
-                $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON));
-
-                if (!$icon)
-                {
-                    $icon = $this->icons->get(Arr::get($node, MenuNode::RELATIONSHIP_ICON) . '.svg');
-                }
-
-                if ($icon)
-                {
-                    Arr::set($node, MenuNode::ICON_ID, $icon->{Icon::ID});
-                }
-
-                $menuNode = MenuNode::firstOrCreate([
-                    MenuNode::VISIBILITY => Arr::get($node, MenuNode::VISIBILITY),
-                    MenuNode::URL => Arr::get($node, MenuNode::URL),
-                ], $node);
+                Arr::set($node, MenuNode::ICON_ID, $icon->{Icon::ID});
             }
+
+            $menuNode = MenuNode::firstOrCreate([
+                MenuNode::VISIBILITY => Arr::get($node, MenuNode::VISIBILITY),
+                MenuNode::URL => Arr::get($node, MenuNode::URL),
+            ], $node);
+
+            $menuHasNode = MenuHasNode::firstOrNew([
+                MenuHasNode::MENU_ID => $menu->{Menu::ID},
+                MenuHasNode::TARGET_ID => $menuNode->{MenuNode::ID},
+            ]);
+
+            $menuHasNode->target()->associate($menuNode);
+
+            $menuHasNode->save();
         }
     }
 
