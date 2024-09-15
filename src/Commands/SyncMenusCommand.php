@@ -68,7 +68,6 @@ class SyncMenusCommand extends Command
         $this->menus = Menu::all()->keyBy(Menu::TYPE);
 
         $this->createMenus();
-        $this->createNodes();
 
         $this->info('Menu tables have been successfully synced with the menu files.');
     }

@@ -18,7 +18,7 @@ return [
     |
     */
 
-    MenuEnum::BACKEND => [[
+    MenuEnum::BACKEND->value => [[
         MenuNode::LABEL => 'Menus',
         MenuNode::URL => '/backend/menus',
         MenuNode::VISIBILITY => VisibilityEnum::AUTH->value,
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    MenuEnum::FOOTER => [],
+    MenuEnum::FOOTER->value => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -50,5 +50,5 @@ return [
     |
     */
 
-    MenuEnum::HEADER => [],
+    MenuEnum::HEADER->value => [],
 ];
